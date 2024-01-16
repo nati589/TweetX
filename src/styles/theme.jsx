@@ -8,6 +8,9 @@ export const theme = createTheme({
         },
         secondary: {
             main: '#d0d0d0',
+        },
+        action: {
+            active: '#fe748d'
         }
     }
 })
