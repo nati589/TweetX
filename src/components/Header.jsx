@@ -44,7 +44,7 @@ export default function Header() {
             <Typography sx={{ fontWeight: "bold" }}>Users</Typography>
           </NavLink>
           <NavLink
-            to="/profile"
+            to="/profile/"
             style={({ isActive }) => {
               return {
                 textDecoration: "none",

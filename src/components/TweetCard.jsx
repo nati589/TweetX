@@ -1,14 +1,14 @@
 import { Avatar, Box, Card, Grid, Typography } from "@mui/material";
 import React from "react";
 
-function TweetCard() {
+function TweetCard({shadow}) {
   const customBoxShadow = "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px";
 
   return (
     <Card
       elevation={0}
       sx={{
-        boxShadow: customBoxShadow,
+        boxShadow: shadow ? customBoxShadow : '' ,
         p: 4,
         borderRadius: 4,
         my: 4,
@@ -30,16 +30,15 @@ function TweetCard() {
               mr: 2,
             }}
           >
-            <Typography variant="h6">Title</Typography>
+            <Typography variant="h6">Arjun Reddy</Typography>
             <Typography variant="p" color='secondary' sx={{ alignSelf: "flex-end" }}>
-              Datetime
+              10 mins ago
             </Typography>
           </Box>
           <Box sx={{ mr: 4, wordBreak: 'break-word'}}>
-            <Typography variant="p">
-              contentcontentcontentcontentcontentcontentcontentcontentcontentcklkjljl
-              ontentcontentcontentcontentcontentcontentcontentcontentconnjnkljkljkljkl
-              tentcontentcontent
+            <Typography variant="p" color='secondary'>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae eius et excepturi culpa! 
+              Similique, dolorem hic. Mollitia, saepe atque nostrum minus deleniti aut laboriosam, esse 
             </Typography>
           </Box>
         </Grid>

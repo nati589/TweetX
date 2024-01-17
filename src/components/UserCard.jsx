@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Card, Grid, Typography } from "@mui/material";
 import React from "react";
 
-function UserCard() {
+function UserCard({ following }) {
   return (
     <Card
       elevation={0}
@@ -33,7 +33,7 @@ function UserCard() {
             sx={{
               px: 1 / 2,
               py: 0,
-              mr: 2
+              mr: 2,
             }}
           >
             <Typography variant="h6">Title</Typography>
@@ -42,20 +42,38 @@ function UserCard() {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
-          <Button
-            variant="contained"
-            sx={{ color: "white", px: 4, py: 1, borderRadius: 1, fontSize: 10, textTransform: 'none' }}
-            disableElevation={true}
-          >
-            Follow
-          </Button>
-          {/* <Button
-            sx={{ textTransform: 'none', color: "black", px: 4, py: 1, borderRadius: 1, fontSize: 14 }}
-            disableElevation={true} 
-          >
-            Following
-          </Button> */}
+        <Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
+          {!following && (
+            <Button
+              variant="contained"
+              sx={{
+                color: "white",
+                px: 4,
+                py: 1,
+                borderRadius: 1,
+                fontSize: 10,
+                textTransform: "none",
+              }}
+              disableElevation={true}
+            >
+              Follow
+            </Button>
+          )}
+          {following && (
+            <Button
+              sx={{
+                textTransform: "none",
+                color: "black",
+                px: 4,
+                py: 1,
+                borderRadius: 1,
+                fontSize: 14,
+              }}
+              disableElevation={true}
+            >
+              Following
+            </Button>
+          )}
         </Grid>
       </Grid>
     </Card>

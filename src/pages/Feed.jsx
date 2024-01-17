@@ -25,10 +25,10 @@ function Feed() {
         NewsFeed
       </Typography>
       <Box sx={{ w: 1, pt: 1 }}>
-        <TweetCard />
-        <TweetCard />
-        <TweetCard />
-        <TweetCard />
+        <TweetCard shadow={true} />
+        <TweetCard shadow={true} />
+        <TweetCard shadow={true} />
+        <TweetCard shadow={true} />
       </Box>
     </Box>
   );

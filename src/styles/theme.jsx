@@ -11,6 +11,9 @@ export const theme = createTheme({
         },
         action: {
             active: '#fe748d'
+        },
+        custom: {
+            main: '#000'
         }
     }
 })
