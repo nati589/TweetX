@@ -8,18 +8,22 @@ import Profile from "./pages/Profile";
 import PostList from "./components/PostList";
 import FollowerList from "./components/FollowerList";
 import FollowingList from "./components/FollowingList";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Header />
       <Routes>
-        <Route exact path="/" element={<Feed />}/>
-        <Route path="/users" element={<Users />}/>
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/" element={<Feed />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/profile" element={<Profile />}>
-          <Route path="/profile/" element={<PostList />}/>
-          <Route path="/profile/followers" element={<FollowerList />}/>
-          <Route path="/profile/following" element={<FollowingList />}/>
+          <Route path="/profile/" element={<PostList />} />
+          <Route path="/profile/followers" element={<FollowerList />} />
+          <Route path="/profile/following" element={<FollowingList />} />
         </Route>
       </Routes>
     </ThemeProvider>
