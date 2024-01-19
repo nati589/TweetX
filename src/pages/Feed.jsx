@@ -1,8 +1,14 @@
 import { Box, Button, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import TweetCard from "../components/TweetCard";
 
+
 function Feed() {
+  
+  useEffect(() => {
+    // userFetch();
+  }, []);
+
   return (
     <Box sx={{ position: "relative", mx: "30%" }}>
       <Button
@@ -25,10 +31,9 @@ function Feed() {
         NewsFeed
       </Typography>
       <Box sx={{ w: 1, pt: 1 }}>
-        <TweetCard shadow={true} />
-        <TweetCard shadow={true} />
-        <TweetCard shadow={true} />
-        <TweetCard shadow={true} />
+       
+          <TweetCard shadow={true}  />
+       
       </Box>
     </Box>
   );

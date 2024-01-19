@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Card, Grid, Typography } from "@mui/material";
 import React from "react";
 
-function UserCard({ following }) {
+function UserCard({ following, user }) {
   return (
     <Card
       elevation={0}
@@ -25,7 +25,7 @@ function UserCard({ following }) {
               border: "1px solid #d0d0d0",
             }}
           >
-            H
+            {user.displayName[0]}
           </Avatar>
         </Grid>
         <Grid item xs={8}>
@@ -36,7 +36,7 @@ function UserCard({ following }) {
               mr: 2,
             }}
           >
-            <Typography variant="h6">Title</Typography>
+            <Typography variant="h6">{user.displayName}</Typography>
             <Typography variant="p" color="secondary">
               Datetime
             </Typography>

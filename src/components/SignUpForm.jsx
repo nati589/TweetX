@@ -3,9 +3,10 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { setAuthenticated, setUser } from "../utils/authCookies";
 import { useNavigate } from "react-router";
+import { collection, addDoc } from "firebase/firestore";
 
 const validationSchema = Yup.object().shape({
   fullName: Yup.string().required("Full Name is required"),
@@ -39,6 +40,14 @@ const SignUpForm = () => {
         });
         setUser(userCredential);
         setAuthenticated(true);
+        console.log(userCredential.user)
+        addDoc(collection(db, "user"), {
+          displayName: values.fullName,
+          email: values.email,
+          profilePhoto: '',
+          uid: userCredential.user.uid
+        });
+      }).then(() => {
         navigate('/')
       })
       .catch((err) => console.log(err.message));
