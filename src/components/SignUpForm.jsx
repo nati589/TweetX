@@ -2,6 +2,10 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { TextField, Button, Box, Typography } from "@mui/material";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../config/firebase";
+import { setAuthenticated, setUser } from "../utils/authCookies";
+import { useNavigate } from "react-router";
 
 const validationSchema = Yup.object().shape({
   fullName: Yup.string().required("Full Name is required"),
@@ -22,10 +26,23 @@ const initialValues = {
 };
 
 const SignUpForm = () => {
-  const handleSubmit = (values, { setSubmitting }) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
     // Handle form submission logic here
-    console.log(values);
     setSubmitting(false);
+    createUserWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        // After successful creation, update the user's profile
+        updateProfile(userCredential.user.auth.currentUser, {
+          displayName: values.fullName,
+        });
+        setUser(userCredential);
+        setAuthenticated(true);
+        navigate('/')
+      })
+      .catch((err) => console.log(err.message));
+    resetForm();
   };
 
   return (

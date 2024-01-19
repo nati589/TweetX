@@ -9,8 +9,11 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { auth } from "../config/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { setAuthenticated, setUser } from "../utils/authCookies";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -28,11 +31,18 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const navigate = useNavigate();
 
   const handleSubmit = (values, { setSubmitting }) => {
     // Handle form submission logic here
-    console.log(values);
-    setSubmitting(false);
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        setUser(userCredential);
+        setAuthenticated(true);
+        navigate("/");
+      })
+      .catch((err) => console.log(err.message));
+    // setSubmitting(false);
   };
 
   return (

@@ -1,11 +1,15 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import { signOut } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { auth } from "../config/firebase";
+import { setAuthenticated, setUser } from "../utils/authCookies";
 
 export default function Header() {
   const customBoxShadow = "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px";
   const location = useLocation();
   const [route, setRoute] = useState();
+  const navigate = useNavigate()
   let routes = useRef(["login", "signup"]);
 
   useEffect(() => {
@@ -15,6 +19,13 @@ export default function Header() {
       setRoute(lastSegment);
     }
   }, [location, routes]);
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      navigate('/login')
+      setUser(null)
+      setAuthenticated(false)
+    })
+  }
   return (
     <Box sx={{ flexGrow: 1, mb: 14 }}>
       <AppBar
@@ -74,6 +85,7 @@ export default function Header() {
               >
                 <Typography sx={{ fontWeight: "bold" }}>Profile</Typography>
               </NavLink>
+              <Button onClick={() => handleSignOut()}>Sign Out</Button>
             </>
           )}
         </Toolbar>
