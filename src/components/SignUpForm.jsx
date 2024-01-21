@@ -51,7 +51,7 @@ const SignUpForm = () => {
         navigate('/')
       })
       .catch((err) => console.log(err.message));
-    resetForm();
+    // resetForm();
   };
 
   return (
