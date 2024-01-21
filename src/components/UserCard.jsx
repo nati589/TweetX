@@ -25,7 +25,7 @@ function UserCard({ following, user }) {
               border: "1px solid #d0d0d0",
             }}
           >
-            {user.displayName[0]}
+            {user?.displayName[0]}
           </Avatar>
         </Grid>
         <Grid item xs={8}>
@@ -36,7 +36,7 @@ function UserCard({ following, user }) {
               mr: 2,
             }}
           >
-            <Typography variant="h6">{user.displayName}</Typography>
+            <Typography variant="h6">{user?.displayName}</Typography>
             <Typography variant="p" color="secondary">
               Datetime
             </Typography>
