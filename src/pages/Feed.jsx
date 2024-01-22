@@ -1,6 +1,7 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import TweetCard from "../components/TweetCard";
+import AddTweetForm from "../components/AddTweetForm";
 
 
 function Feed() {
@@ -11,12 +12,7 @@ function Feed() {
 
   return (
     <Box sx={{ position: "relative", mx: "30%" }}>
-      <Button
-        variant="contained"
-        sx={{ color: "white", px: 4, py: 1, borderRadius: 2, fontSize: 14 }}
-      >
-        Write
-      </Button>
+      <AddTweetForm />
       <Typography
         color="whitesmoke"
         variant="h1"
