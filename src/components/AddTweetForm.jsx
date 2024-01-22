@@ -21,7 +21,7 @@ const initialValues = {
   post: "",
 };
 
-function AddTweetForm() {
+function AddTweetForm({ user }) {
   const customBoxShadow = "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px";
   const [addPost, setAddPost] = useState(false);
 
@@ -30,10 +30,9 @@ function AddTweetForm() {
     setSubmitting(false);
 
     addDoc(collection(db, "post"), {
-    //   displayName: values.fullName,
-    //   email: values.email,
-    //   profilePhoto: "",
-      //   uid: userCredential.user.uid,
+      post: values.post,
+      date: new Date(),
+      uid: user.uid,
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err.message));
@@ -108,9 +107,19 @@ function AddTweetForm() {
                     </Box>
                   </Box>
                   <Box
-                    sx={{ display: "flex", justifyContent: "flex-end", mr: 4, mt: 2  }}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      mr: 4,
+                      mt: 2,
+                    }}
                   >
-                    <Button variant="contained" sx={{color: 'white'}} type="submit" onClick={() => setAddPost(prev => !prev)}>
+                    <Button
+                      variant="contained"
+                      sx={{ color: "white" }}
+                      type="submit"
+                      onClick={() => setAddPost((prev) => !prev)}
+                    >
                       Save
                     </Button>
                   </Box>
