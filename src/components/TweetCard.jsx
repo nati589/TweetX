@@ -3,7 +3,6 @@ import React from "react";
 import { getPostTime } from "../utils/getPostTime";
 
 function TweetCard({shadow, feed}) {
-  console.log(feed)
   const customBoxShadow = "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px";
 
   return (

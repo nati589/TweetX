@@ -45,7 +45,10 @@ const SignUpForm = () => {
           displayName: values.fullName,
           email: values.email,
           profilePhoto: '',
-          uid: userCredential.user.uid
+          uid: userCredential.user.uid,
+          followers: 0,
+          following: 0,
+          posts: 0
         });
       }).then(() => {
         navigate('/')

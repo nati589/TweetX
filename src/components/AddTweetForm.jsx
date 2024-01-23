@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, query, where } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 const validationSchema = Yup.object().shape({
@@ -22,6 +22,7 @@ const initialValues = {
 };
 
 function AddTweetForm({ user }) {
+  console.log(user)
   const customBoxShadow = "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px";
   const [addPost, setAddPost] = useState(false);
 
@@ -34,7 +35,13 @@ function AddTweetForm({ user }) {
       date: new Date(),
       uid: user.uid,
     })
-      .then((res) => console.log(res))
+      .then((res) => {
+        // let userData = query(collection(db,"user"), where("uid", '==', user.uid))
+        // console.log(userData)
+        // updateDoc(collection(db, "user"), { followers: 0})
+        console.log("res ", res)
+        setAddPost((prev) => !prev)
+      })
       .catch((err) => console.log(err.message));
     // resetForm();
   };
@@ -118,7 +125,7 @@ function AddTweetForm({ user }) {
                       variant="contained"
                       sx={{ color: "white" }}
                       type="submit"
-                      onClick={() => setAddPost((prev) => !prev)}
+                      // onClick={() => }
                     >
                       Save
                     </Button>
