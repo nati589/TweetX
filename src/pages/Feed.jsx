@@ -2,14 +2,18 @@ import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import TweetCard from "../components/TweetCard";
 import AddTweetForm from "../components/AddTweetForm";
-import { collection, getDocs, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 import { getUser } from "../utils/authCookies";
 
 function Feed() {
   const user = getUser();
-
   const [feedList, setFeedList] = useState([]);
+
   const feedFetch = async () => {
     try {
       const q = query(collection(db, "post"));
@@ -25,13 +29,14 @@ function Feed() {
       console.log(err.message);
     }
   };
+  
   useEffect(() => {
+    console.log('hi');
     feedFetch();
   }, []);
-
   return (
     <Box sx={{ position: "relative", mx: "30%" }}>
-      <AddTweetForm user={user}/>
+      <AddTweetForm getFeed={feedFetch} uid={user?.uid} />
       <Typography
         color="whitesmoke"
         variant="h1"

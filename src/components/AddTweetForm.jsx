@@ -7,11 +7,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { collection, addDoc, updateDoc, query, where } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "../config/firebase";
+import { getUserData } from "../utils/getUser";
 
 const validationSchema = Yup.object().shape({
   post: Yup.string().required("Post cannot be empty"),
@@ -21,29 +22,32 @@ const initialValues = {
   post: "",
 };
 
-function AddTweetForm({ user }) {
-  console.log(user)
+function AddTweetForm({ uid, getFeed }) {
+  const [user, setUser] = useState([]);
   const customBoxShadow = "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px";
   const [addPost, setAddPost] = useState(false);
+
+  useEffect(() => {
+    getUserData(uid).then((res) => setUser(res));
+  }, [uid]);
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     // Handle form submission logic here
     setSubmitting(false);
-
+    // let userData = {};
     addDoc(collection(db, "post"), {
       post: values.post,
       date: new Date(),
-      uid: user.uid,
+      uid: uid,
     })
-      .then((res) => {
-        // let userData = query(collection(db,"user"), where("uid", '==', user.uid))
-        // console.log(userData)
-        // updateDoc(collection(db, "user"), { followers: 0})
-        console.log("res ", res)
-        setAddPost((prev) => !prev)
+      .then(async (res) => {
+        console.log("res ", res);
+        updateDoc(doc(db, "user", uid), { posts: (user.posts += 1) })
+        getFeed()
+        setAddPost((prev) => !prev);
+        resetForm();
       })
       .catch((err) => console.log(err.message));
-    // resetForm();
   };
 
   return (
